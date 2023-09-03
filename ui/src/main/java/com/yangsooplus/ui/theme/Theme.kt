@@ -1,4 +1,4 @@
-package com.yangsooplus.midget.ui.theme
+package com.yangsooplus.ui.theme
 
 import android.app.Activity
 import android.os.Build
