@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.yangsooplus.database"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
@@ -42,4 +42,8 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+
+    // Local tests: jUnit, coroutines, Android runner
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
 }
