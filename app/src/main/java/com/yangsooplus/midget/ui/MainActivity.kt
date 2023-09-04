@@ -1,5 +1,6 @@
 package com.yangsooplus.midget.ui
 
+import MidgetConstants
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -12,13 +13,15 @@ import com.yangsooplus.ui.theme.MidgetTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val destination = intent.extras?.getString(MidgetConstants.WIDGET_DESTINATION) ?: "home"
+
         setContent {
             MidgetTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    Navigation()
+                    Navigation(destination)
                 }
             }
         }
