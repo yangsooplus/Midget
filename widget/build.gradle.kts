@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.yangsooplus.widget"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
@@ -24,6 +24,12 @@ android {
                 "proguard-rules.pro",
             )
         }
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -70,6 +76,9 @@ dependencies {
     // Local tests: jUnit, coroutines, Android runner
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
+
+    // Glance Widget
+    implementation(libs.glance)
 
     // Instrumented tests: jUnit rules and runners
     androidTestImplementation(libs.androidx.test.ext.junit)
