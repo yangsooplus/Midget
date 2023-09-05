@@ -19,35 +19,29 @@ class MidgetWidget : GlanceAppWidget() {
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
-            MemoContent(context)
+            MemoContent(
+                onClick = {
+                    context.startActivity(
+                        Intent().apply {
+                            component = ComponentName(
+                                "com.yangsooplus.midget",
+                                "com.yangsooplus.midget.ui.MainActivity",
+                            )
+                            flags = FLAG_ACTIVITY_NEW_TASK
+                            putExtra(MidgetConstants.WIDGET_DESTINATION, "custom")
+                        },
+                    )
+                },
+            )
         }
     }
 
     @Composable
-    private fun MemoContent(context: Context) {
+    private fun MemoContent(
+        onClick: () -> Unit,
+    ) {
         Box(
-            modifier = GlanceModifier.fillMaxSize().clickable {
-                val intent = Intent().apply {
-                    component = ComponentName(
-                        "com.yangsooplus.midget",
-                        "com.yangsooplus.midget.ui.MainActivity",
-                    )
-                    flags = FLAG_ACTIVITY_NEW_TASK
-                    putExtra(MidgetConstants.WIDGET_DESTINATION, "custom")
-                }
-                context.startActivity(intent)
-                /*
-                Glance Not Work Issue
-
-                actionStartActivity(
-                    componentName = ComponentName(
-                        "com.yangsooplus.midget",
-                        "com.yangsooplus.midget.ui.MainActivity",
-                    ),
-                    parameters = actionParametersOf(destinationKey to "home"),
-                )
-                 */
-            },
+            modifier = GlanceModifier.fillMaxSize().clickable { onClick() },
         ) {
             Text(text = "hello midget")
         }
