@@ -20,6 +20,7 @@ espresso-core = "3.5.1"
 appcompat = "1.6.1"
 material = "1.9.0"
 glance = "1.0.0-rc01"
+colorpicker = "1.0.4"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
@@ -55,6 +56,8 @@ espresso-core = { group = "androidx.test.espresso", name = "espresso-core", vers
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 glance = { module = "androidx.glance:glance-appwidget", version.ref = "glance"}
+colorpicker = { module = "com.github.skydoves:colorpicker-compose", version.ref = "colorpicker" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

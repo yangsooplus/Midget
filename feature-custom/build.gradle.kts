@@ -47,6 +47,8 @@ dependencies {
     implementation(project(":ui"))
     implementation(project(":data"))
 
+    implementation(libs.colorpicker)
+
     // Core Android dependencies
     implementation(libs.androidx.activity.compose)
 
