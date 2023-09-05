@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -31,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.github.skydoves.colorpicker.compose.AlphaSlider
 import com.github.skydoves.colorpicker.compose.BrightnessSlider
@@ -48,8 +50,10 @@ fun StepAdjuster(
 ) {
     Row(
         modifier = Modifier.height(40.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Button(
+            modifier = Modifier.width(40.dp),
             onClick = onDecrease,
             shape = RoundedCornerShape(
                 topStart = 12.dp,
@@ -61,7 +65,8 @@ fun StepAdjuster(
                 contentColor = MaterialTheme.colorScheme.onSurface,
                 containerColor = MaterialTheme.colorScheme.surface,
             ),
-        ) { Text(text = "-") }
+            contentPadding = PaddingValues(0.dp),
+        ) { Text(text = "-", fontSize = 18.sp) }
         Box(
             modifier = Modifier
                 .fillMaxHeight()
@@ -72,6 +77,7 @@ fun StepAdjuster(
             centerComponent()
         }
         Button(
+            modifier = Modifier.width(40.dp),
             onClick = onIncrease,
             shape = RoundedCornerShape(
                 topStart = 0.dp,
@@ -83,7 +89,8 @@ fun StepAdjuster(
                 contentColor = MaterialTheme.colorScheme.onSurface,
                 containerColor = MaterialTheme.colorScheme.surface,
             ),
-        ) { Text(text = "+") }
+            contentPadding = PaddingValues(0.dp),
+        ) { Text(text = "+", fontSize = 18.sp) }
     }
 }
 
