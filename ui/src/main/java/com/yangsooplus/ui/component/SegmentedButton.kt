@@ -36,7 +36,7 @@ fun <T> SegmentedButton(
     contentColor: Color = MaterialTheme.colorScheme.primary,
     backgroundColor: Color = MaterialTheme.colorScheme.onPrimary,
     borderWidth: Dp = 0.4.dp,
-    onItemSelect: (Int) -> Unit,
+    onItemSelect: (T) -> Unit,
 ) {
     var selectedIndex by remember { mutableIntStateOf(defaultIndex) }
 
@@ -49,7 +49,7 @@ fun <T> SegmentedButton(
                     if (selectedIndex == i) {
                         OutlinedButton(
                             onClick = {
-                                onItemSelect(i)
+                                onItemSelect(items[i].first)
                                 selectedIndex = i
                             },
                             modifier = Modifier.width(itemWidth),
@@ -72,7 +72,7 @@ fun <T> SegmentedButton(
                     } else {
                         OutlinedButton(
                             onClick = {
-                                onItemSelect(i)
+                                onItemSelect(items[i].first)
                                 selectedIndex = i
                             },
                             modifier = Modifier.width(itemWidth),
@@ -99,7 +99,7 @@ fun <T> SegmentedButton(
                     if (selectedIndex == i) {
                         OutlinedButton(
                             onClick = {
-                                onItemSelect(i)
+                                onItemSelect(items[i].first)
                                 selectedIndex = i
                             },
                             modifier = Modifier.width(itemWidth),
@@ -122,7 +122,7 @@ fun <T> SegmentedButton(
                     } else {
                         OutlinedButton(
                             onClick = {
-                                onItemSelect(i)
+                                onItemSelect(items[i].first)
                                 selectedIndex = i
                             },
                             modifier = Modifier.width(itemWidth),
@@ -149,7 +149,7 @@ fun <T> SegmentedButton(
                     if (selectedIndex == i) {
                         OutlinedButton(
                             onClick = {
-                                onItemSelect(i)
+                                onItemSelect(items[i].first)
                                 selectedIndex = i
                             },
                             modifier = Modifier.width(itemWidth),
@@ -169,7 +169,7 @@ fun <T> SegmentedButton(
                     } else {
                         OutlinedButton(
                             onClick = {
-                                onItemSelect(i)
+                                onItemSelect(items[i].first)
                                 selectedIndex = i
                             },
                             modifier = Modifier.width(itemWidth),
