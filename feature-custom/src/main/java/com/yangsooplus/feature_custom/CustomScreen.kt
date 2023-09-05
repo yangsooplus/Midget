@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,6 +29,11 @@ fun CustomScreen() {
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
+        SelectionContainer {
+            Text(
+                text = memoContent,
+            )
+        }
         BasicTextField(
             value = memoContent,
             onValueChange = { memoContent = it },
