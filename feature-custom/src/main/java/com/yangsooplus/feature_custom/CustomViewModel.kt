@@ -10,6 +10,4 @@ import kotlinx.coroutines.flow.asStateFlow
 class CustomViewModel : ViewModel() {
     private val _memoDecoration = MutableStateFlow(MemoDecoration())
     val memoDecoration = _memoDecoration.asStateFlow()
-
-
 }
