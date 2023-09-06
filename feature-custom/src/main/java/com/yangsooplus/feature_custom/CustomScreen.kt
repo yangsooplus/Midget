@@ -26,7 +26,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,6 +33,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.yangsooplus.feature_custom.component.ColorPickerButton
 import com.yangsooplus.feature_custom.component.ColorPickerDialog
@@ -54,14 +54,20 @@ fun CustomScreen(
         Column(
             modifier = Modifier.fillMaxSize(),
         ) {
-            SelectionContainer {
-                Text(
-                    text = uiState.memoContent,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                        .padding(16.dp),
-                )
+            SelectionContainer(
+                modifier = Modifier.fillMaxWidth().weight(2f).padding(16.dp)
+            ) {
+                memoDecorationState.textDecoration.let { textDeco ->
+                    Text(
+                        text = uiState.memoContent,
+                        color = textDeco.fontColor,
+                        fontSize = textDeco.fontSize.sp,
+                        fontFamily = textDeco.fontFamily,
+                        fontWeight = textDeco.fontWeight.weight,
+                        textAlign = textDeco.textAlign,
+                        fontStyle = textDeco.fontStyle,
+                    )
+                }
             }
             BasicTextField(
                 value = uiState.memoContent,
@@ -88,7 +94,7 @@ fun CustomScreen(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
+                    .weight(2f)
                     .padding(24.dp)
                     .verticalScroll(decorationScrollState),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -112,10 +118,10 @@ fun CustomScreen(
                         contentAlignment = Alignment.Center,
                     ) {
                         StepAdjuster(
-                            onIncrease = { /*TODO*/ },
-                            onDecrease = { /*TODO*/ },
+                            onIncrease = { viewModel.adjustFontSize(Adjustment.Up) },
+                            onDecrease = { viewModel.adjustFontSize(Adjustment.Down) },
                         ) {
-                            Text(text = "14")
+                            Text(text = memoDecorationState.textDecoration.fontSize.toString())
                         }
                     }
                 }
@@ -132,8 +138,8 @@ fun CustomScreen(
                                 FontStyle.Normal to Icons.Default.FavoriteBorder,
                                 FontStyle.Italic to Icons.Default.Favorite,
                             ),
-                            onItemSelect = {
-                                it
+                            onItemSelect = { fontStyle ->
+                                viewModel.setFontStyle(fontStyle)
                             },
                         )
                     }
@@ -142,10 +148,14 @@ fun CustomScreen(
                         contentAlignment = Alignment.Center,
                     ) {
                         StepAdjuster(
-                            onIncrease = { /*TODO*/ },
-                            onDecrease = { /*TODO*/ },
+                            contentWidth = 80.dp,
+                            onIncrease = { viewModel.adjustFontWeight(Adjustment.Up) },
+                            onDecrease = { viewModel.adjustFontWeight(Adjustment.Down) },
                         ) {
-                            Text(text = "Bold")
+                            Text(
+                                text = memoDecorationState.textDecoration.fontWeight.weightName,
+                                fontWeight = memoDecorationState.textDecoration.fontWeight.weight,
+                            )
                         }
                     }
                 }
@@ -163,7 +173,7 @@ fun CustomScreen(
                                 TextAlign.Center to Icons.Filled.Favorite,
                                 TextAlign.End to Icons.Filled.Star,
                             ),
-                            onItemSelect = {},
+                            onItemSelect = { viewModel.setTextAlign(it) },
                         )
                     }
                     Box(
@@ -173,10 +183,10 @@ fun CustomScreen(
                         SegmentedButton(
                             items = listOf(
                                 Alignment.Top to Icons.Filled.FavoriteBorder,
-                                Alignment.Center to Icons.Filled.Favorite,
+                                Alignment.CenterVertically to Icons.Filled.Favorite,
                                 Alignment.Bottom to Icons.Filled.Star,
                             ),
-                            onItemSelect = {},
+                            onItemSelect = { viewModel.setTextVerticalAlign(it) },
                         )
                     }
                 }

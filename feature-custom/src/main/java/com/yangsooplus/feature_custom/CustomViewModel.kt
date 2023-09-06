@@ -64,8 +64,15 @@ class CustomViewModel @Inject constructor() : ViewModel() {
         _textDecoState.update {
             val currentWeight = FontWeights.values().indexOf(it.fontWeight)
             val changeWeight = when (adjustment) {
-                Adjustment.Up -> FontWeights.values()[currentWeight + 1]
-                Adjustment.Down -> FontWeights.values()[currentWeight - 1]
+                Adjustment.Up -> {
+                    if (currentWeight == FontWeights.values().size - 1) return
+                    FontWeights.values()[currentWeight + 1]
+                }
+
+                Adjustment.Down -> {
+                    if (currentWeight == 0) return
+                    FontWeights.values()[currentWeight - 1]
+                }
             }
             it.copy(fontWeight = changeWeight)
         }
@@ -88,7 +95,7 @@ class CustomViewModel @Inject constructor() : ViewModel() {
         _textDecoState.update { it.copy(textAlign = textAlign) }
     }
 
-    fun setTextVerticalAlign(alignment: Alignment) {
+    fun setTextVerticalAlign(alignment: Alignment.Vertical) {
         _textDecoState.update { it.copy(textVerticalAlign = alignment) }
     }
 }

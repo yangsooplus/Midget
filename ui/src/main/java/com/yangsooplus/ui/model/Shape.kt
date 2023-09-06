@@ -7,8 +7,8 @@ enum class Shape {
 }
 
 enum class FontWeights(
-    weightName: String,
-    weight: FontWeight,
+    val weightName: String,
+    val weight: FontWeight,
 ) {
     Thin("Thin", FontWeight.Thin),
     ExtraLight("ExtraLight", FontWeight.ExtraLight),

@@ -173,6 +173,7 @@ fun ColorPickerDialog(
                     onColorChanged = { colorEnvelope ->
                         selectedColor = colorEnvelope.color
                     },
+                    initialColor = initialColor
                 )
                 AlphaSlider(
                     modifier = Modifier.fillMaxWidth().height(36.dp),
