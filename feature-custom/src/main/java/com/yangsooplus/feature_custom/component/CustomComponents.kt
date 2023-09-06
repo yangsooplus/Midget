@@ -50,10 +50,12 @@ import com.yangsooplus.ui.theme.BlueLightGray
 fun StepAdjuster(
     onIncrease: () -> Unit,
     onDecrease: () -> Unit,
+    modifier: Modifier = Modifier,
+    contentWidth: Dp = 60.dp,
     centerComponent: @Composable () -> Unit,
 ) {
     Row(
-        modifier = Modifier.height(40.dp),
+        modifier = Modifier.then(modifier).height(40.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Button(
@@ -66,14 +68,15 @@ fun StepAdjuster(
                 bottomEnd = 0.dp,
             ),
             colors = ButtonDefaults.buttonColors(
-                contentColor = MaterialTheme.colorScheme.onSurface,
-                containerColor = MaterialTheme.colorScheme.surface,
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+                containerColor = MaterialTheme.colorScheme.primary,
             ),
             contentPadding = PaddingValues(0.dp),
         ) { Text(text = "-", fontSize = 18.sp) }
         Box(
             modifier = Modifier
                 .fillMaxHeight()
+                .width(contentWidth)
                 .background(color = Color.White)
                 .padding(horizontal = 8.dp),
             contentAlignment = Alignment.Center,
@@ -90,8 +93,8 @@ fun StepAdjuster(
                 bottomEnd = 12.dp,
             ),
             colors = ButtonDefaults.buttonColors(
-                contentColor = MaterialTheme.colorScheme.onSurface,
-                containerColor = MaterialTheme.colorScheme.surface,
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+                containerColor = MaterialTheme.colorScheme.primary,
             ),
             contentPadding = PaddingValues(0.dp),
         ) { Text(text = "+", fontSize = 18.sp) }
@@ -109,12 +112,14 @@ fun StepAdjusterPreview() {
 @Composable
 fun ColorPickerButton(
     color: Color,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
     Button(
-        modifier = Modifier.size(width = 60.dp, height = 40.dp),
+        modifier = Modifier.then(modifier).size(width = 60.dp, height = 40.dp),
         colors = ButtonDefaults.buttonColors(containerColor = color),
         shape = RoundedCornerShape(8.dp),
+        border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.primary),
         contentPadding = PaddingValues(),
         onClick = onClick,
     ) {
@@ -142,6 +147,7 @@ fun ColorPickerButtonPreview() {
 @Composable
 fun ColorPickerDialog(
     initialColor: Color,
+    modifier: Modifier = Modifier,
     onDismiss: (Color) -> Unit,
 ) {
     val controller = rememberColorPickerController()
@@ -151,7 +157,7 @@ fun ColorPickerDialog(
         onDismissRequest = { onDismiss(selectedColor) },
     ) {
         Card(
-            modifier = Modifier.fillMaxWidth().padding(24.dp),
+            modifier = Modifier.then(modifier).fillMaxWidth().padding(24.dp),
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.background,
                 contentColor = MaterialTheme.colorScheme.onBackground,
@@ -217,15 +223,17 @@ fun ColorPickerDialogPreview() {
 @Composable
 fun ShapeButton(
     shape: Shape,
+    modifier: Modifier = Modifier,
     fillColor: Color = Color.Transparent,
     borderColor: Color = Color.Transparent,
     borderWidth: Dp = 1.dp,
     onClick: () -> Unit,
 ) {
     Button(
-        modifier = Modifier.size(width = 60.dp, height = 40.dp),
+        modifier = Modifier.then(modifier).size(width = 60.dp, height = 40.dp),
         colors = ButtonDefaults.buttonColors(containerColor = fillColor),
         shape = RoundedCornerShape(10.dp),
+        border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.primary),
         contentPadding = PaddingValues(),
         onClick = onClick,
     ) {
@@ -250,8 +258,18 @@ fun ShapeButton(
 @Composable
 fun ShapeButtonPreview() {
     Column {
-        ShapeButton(shape = RoundedCornerShape(10.dp), borderColor = Color.Cyan, borderWidth = 3.dp, onClick = {})
+        ShapeButton(
+            shape = RoundedCornerShape(10.dp),
+            borderColor = Color.Cyan,
+            borderWidth = 3.dp,
+            onClick = {},
+        )
         ShapeButton(shape = RoundedCornerShape(40.dp), fillColor = Color.Magenta, onClick = {})
-        ShapeButton(shape = CutCornerShape(30.dp), fillColor = Color(0xA00000FF), borderColor = Color.White, onClick = {})
+        ShapeButton(
+            shape = CutCornerShape(30.dp),
+            fillColor = Color(0xA00000FF),
+            borderColor = Color.White,
+            onClick = {},
+        )
     }
 }
