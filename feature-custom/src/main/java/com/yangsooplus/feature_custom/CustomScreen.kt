@@ -5,11 +5,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -18,14 +16,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -36,10 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shadow
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -61,13 +49,6 @@ fun CustomScreen() {
             Text(
                 text = "memoContent",
                 modifier = Modifier.fillMaxWidth().weight(1f).padding(16.dp),
-                style = TextStyle(
-                    shadow = Shadow(
-                        color = Color.Magenta,
-                        offset = Offset(3f, -3f),
-                        blurRadius = 20f,
-                    ),
-                ),
             )
         }
         BasicTextField(
@@ -145,68 +126,6 @@ fun CustomScreen() {
                     ),
                     onItemSelect = {},
                 )
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(30.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(text = "shadow")
-                ColorPickerButton(color = Color.Green) {
-                }
-                StepAdjuster(
-                    onIncrease = { /*TODO*/ },
-                    onDecrease = { /*TODO*/ },
-                ) {
-                    Text(text = "3")
-                }
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Spacer(modifier = Modifier.width(80.dp))
-                IconButton(
-                    onClick = { /*TODO*/ },
-                    colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.primary),
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.KeyboardArrowLeft,
-                        tint = MaterialTheme.colorScheme.onPrimary,
-                        contentDescription = null,
-                    )
-                }
-                IconButton(
-                    onClick = { /*TODO*/ },
-                    colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.primary),
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.KeyboardArrowRight,
-                        tint = MaterialTheme.colorScheme.onPrimary,
-                        contentDescription = null,
-                    )
-                }
-                IconButton(
-                    onClick = { /*TODO*/ },
-                    colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.primary),
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.KeyboardArrowUp,
-                        tint = MaterialTheme.colorScheme.onPrimary,
-                        contentDescription = null,
-                    )
-                }
-                IconButton(
-                    onClick = { /*TODO*/ },
-                    colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.primary),
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.KeyboardArrowDown,
-                        tint = MaterialTheme.colorScheme.onPrimary,
-                        contentDescription = null,
-                    )
-                }
             }
         }
     }
