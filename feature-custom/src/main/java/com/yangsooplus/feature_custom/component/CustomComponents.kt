@@ -1,5 +1,6 @@
 package com.yangsooplus.feature_custom.component // ktlint-disable package-name
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -29,8 +31,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -208,4 +212,46 @@ fun ColorPickerDialogPreview() {
         initialColor = Color.Cyan,
         onDismiss = { },
     )
+}
+
+@Composable
+fun ShapeButton(
+    shape: Shape,
+    fillColor: Color = Color.Transparent,
+    borderColor: Color = Color.Transparent,
+    borderWidth: Dp = 1.dp,
+    onClick: () -> Unit,
+) {
+    Button(
+        modifier = Modifier.size(width = 60.dp, height = 40.dp),
+        colors = ButtonDefaults.buttonColors(containerColor = fillColor),
+        shape = RoundedCornerShape(10.dp),
+        contentPadding = PaddingValues(),
+        onClick = onClick,
+    ) {
+        Box {
+            Surface(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .drawCheckBoard(),
+                color = Color.Transparent,
+            ) {}
+            Surface(
+                modifier = Modifier.fillMaxSize().padding(4.dp),
+                color = fillColor,
+                shape = shape,
+                border = BorderStroke(width = borderWidth, color = borderColor),
+            ) {}
+        }
+    }
+}
+
+@Preview
+@Composable
+fun ShapeButtonPreview() {
+    Column {
+        ShapeButton(shape = RoundedCornerShape(10.dp), borderColor = Color.Cyan, borderWidth = 3.dp, onClick = {})
+        ShapeButton(shape = RoundedCornerShape(40.dp), fillColor = Color.Magenta, onClick = {})
+        ShapeButton(shape = CutCornerShape(30.dp), fillColor = Color(0xA00000FF), borderColor = Color.White, onClick = {})
+    }
 }
