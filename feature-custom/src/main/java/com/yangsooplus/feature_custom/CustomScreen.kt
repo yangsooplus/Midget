@@ -29,6 +29,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -55,7 +56,7 @@ fun CustomScreen(
             modifier = Modifier.fillMaxSize(),
         ) {
             SelectionContainer(
-                modifier = Modifier.fillMaxWidth().weight(2f).padding(16.dp)
+                modifier = Modifier.fillMaxWidth().weight(2f).padding(16.dp),
             ) {
                 memoDecorationState.textDecoration.let { textDeco ->
                     Text(
@@ -159,6 +160,19 @@ fun CustomScreen(
                         }
                     }
                 }
+                SegmentedButton(
+                    items = listOf(
+                        FontFamily.Default to Icons.Filled.FavoriteBorder,
+                        FontFamily.Serif to Icons.Filled.FavoriteBorder,
+                        FontFamily.SansSerif to Icons.Filled.FavoriteBorder,
+                        FontFamily.Monospace to Icons.Filled.FavoriteBorder,
+                        FontFamily.Cursive to Icons.Filled.FavoriteBorder,
+                    ),
+                    onItemSelect = {
+                        viewModel.setFontFamily(it)
+                    },
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                )
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly,
