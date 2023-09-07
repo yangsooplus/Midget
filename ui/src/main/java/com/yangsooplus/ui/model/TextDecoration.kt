@@ -13,5 +13,5 @@ data class TextDecoration(
     val fontStyle: FontStyle = FontStyle.Normal,
     val fontWeight: FontWeights = FontWeights.Normal,
     val textAlign: TextAlign = TextAlign.Start,
-    val textVerticalAlign: Alignment.Vertical = Alignment.CenterVertically
+    val textVerticalAlign: Alignment = Alignment.Center
 )

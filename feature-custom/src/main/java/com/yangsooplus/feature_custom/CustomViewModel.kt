@@ -11,6 +11,7 @@ import com.yangsooplus.ui.model.BackgroundDecoration
 import com.yangsooplus.ui.model.BorderDecoration
 import com.yangsooplus.ui.model.FontWeights
 import com.yangsooplus.ui.model.MemoDecoration
+import com.yangsooplus.ui.model.Shape
 import com.yangsooplus.ui.model.TextDecoration
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -95,7 +96,69 @@ class CustomViewModel @Inject constructor() : ViewModel() {
         _textDecoState.update { it.copy(textAlign = textAlign) }
     }
 
-    fun setTextVerticalAlign(alignment: Alignment.Vertical) {
+    fun setTextVerticalAlign(alignment: Alignment) {
         _textDecoState.update { it.copy(textVerticalAlign = alignment) }
+    }
+
+    fun setBackgroundColor(color: Color) {
+        _backgroundDecoState.update { it.copy(backgroundColor = color) }
+        _uiState.update { it.copy(currentColorOption = null) }
+    }
+
+    fun changeBackgroundShape() {
+        val currentShape = _backgroundDecoState.value.backgroundShape.ordinal
+        _backgroundDecoState.update { it.copy(backgroundShape = Shape.values()[(currentShape + 1) % Shape.values().size]) }
+    }
+
+    fun adjustBackgroundShapeUnit(adjustment: Adjustment) {
+        _backgroundDecoState.update {
+            it.copy(
+                backgroundShapeUnit = when (adjustment) {
+                    Adjustment.Up -> it.backgroundShapeUnit + 1
+                    Adjustment.Down -> {
+                        if (it.backgroundShapeUnit == 0) return
+                        it.backgroundShapeUnit - 1
+                    }
+                },
+            )
+        }
+    }
+
+    fun setBorderColor(color: Color) {
+        _borderDecoState.update { it.copy(borderColor = color) }
+        _uiState.update { it.copy(currentColorOption = null) }
+    }
+
+    fun changeBorderShape() {
+        val currentShape = _borderDecoState.value.borderShape.ordinal
+        _borderDecoState.update { it.copy(borderShape = Shape.values()[currentShape % Shape.values().size]) }
+    }
+
+    fun adjustBorderWidth(adjustment: Adjustment) {
+        _borderDecoState.update {
+            it.copy(
+                borderWidth = when (adjustment) {
+                    Adjustment.Up -> it.borderWidth + 1
+                    Adjustment.Down -> {
+                        if (it.borderWidth == 0) return
+                        it.borderWidth - 1
+                    }
+                },
+            )
+        }
+    }
+
+    fun adjustBorderShapeUnit(adjustment: Adjustment) {
+        _borderDecoState.update {
+            it.copy(
+                borderShapeUnit = when (adjustment) {
+                    Adjustment.Up -> it.borderShapeUnit + 1
+                    Adjustment.Down -> {
+                        if (it.borderShapeUnit == 0) return
+                        it.borderShapeUnit - 1
+                    }
+                },
+            )
+        }
     }
 }

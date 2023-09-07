@@ -1,6 +1,7 @@
 package com.yangsooplus.feature_custom // ktlint-disable package-name
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.selection.SelectionContainer
@@ -29,6 +32,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -41,6 +45,7 @@ import com.yangsooplus.feature_custom.component.ColorPickerDialog
 import com.yangsooplus.feature_custom.component.ShapeButton
 import com.yangsooplus.feature_custom.component.StepAdjuster
 import com.yangsooplus.ui.component.SegmentedButton
+import com.yangsooplus.ui.model.Shape
 
 @Composable
 fun CustomScreen(
@@ -49,7 +54,7 @@ fun CustomScreen(
     val textFieldScrollState = rememberScrollState()
     val decorationScrollState = rememberScrollState()
     val uiState by viewModel.uiState.collectAsState()
-    val memoDecorationState by viewModel.memoDecoState.collectAsState()
+    val memoDecoState by viewModel.memoDecoState.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -58,15 +63,35 @@ fun CustomScreen(
             SelectionContainer(
                 modifier = Modifier.fillMaxWidth().weight(2f).padding(16.dp),
             ) {
-                memoDecorationState.textDecoration.let { textDeco ->
+                Box(
+                    modifier = Modifier.background(
+                        color = memoDecoState.backgroundDecoration.backgroundColor,
+                        shape = when (memoDecoState.backgroundDecoration.backgroundShape) {
+                            Shape.Rectangle -> RectangleShape
+                            Shape.Circle -> CircleShape
+                            Shape.RoundedCorner -> RoundedCornerShape(memoDecoState.backgroundDecoration.backgroundShapeUnit)
+                            Shape.CutCorner -> CutCornerShape(memoDecoState.backgroundDecoration.backgroundShapeUnit)
+                        },
+                    ).border(
+                        width = memoDecoState.borderDecoration.borderWidth.dp,
+                        color = memoDecoState.borderDecoration.borderColor,
+                        shape = when (memoDecoState.borderDecoration.borderShape) {
+                            Shape.Rectangle -> RectangleShape
+                            Shape.Circle -> CircleShape
+                            Shape.RoundedCorner -> RoundedCornerShape(memoDecoState.borderDecoration.borderShapeUnit)
+                            Shape.CutCorner -> CutCornerShape(memoDecoState.borderDecoration.borderShapeUnit)
+                        },
+                    ).padding(24.dp),
+                    contentAlignment = memoDecoState.textDecoration.textVerticalAlign,
+                ) {
                     Text(
                         text = uiState.memoContent,
-                        color = textDeco.fontColor,
-                        fontSize = textDeco.fontSize.sp,
-                        fontFamily = textDeco.fontFamily,
-                        fontWeight = textDeco.fontWeight.weight,
-                        textAlign = textDeco.textAlign,
-                        fontStyle = textDeco.fontStyle,
+                        color = memoDecoState.textDecoration.fontColor,
+                        fontSize = memoDecoState.textDecoration.fontSize.sp,
+                        fontFamily = memoDecoState.textDecoration.fontFamily,
+                        fontWeight = memoDecoState.textDecoration.fontWeight.weight,
+                        textAlign = memoDecoState.textDecoration.textAlign,
+                        fontStyle = memoDecoState.textDecoration.fontStyle,
                     )
                 }
             }
@@ -109,7 +134,7 @@ fun CustomScreen(
                         contentAlignment = Alignment.Center,
                     ) {
                         ColorPickerButton(
-                            color = memoDecorationState.textDecoration.fontColor,
+                            color = memoDecoState.textDecoration.fontColor,
                         ) {
                             viewModel.startPickingColor(ColorOption.TextColor)
                         }
@@ -122,7 +147,7 @@ fun CustomScreen(
                             onIncrease = { viewModel.adjustFontSize(Adjustment.Up) },
                             onDecrease = { viewModel.adjustFontSize(Adjustment.Down) },
                         ) {
-                            Text(text = memoDecorationState.textDecoration.fontSize.toString())
+                            Text(text = memoDecoState.textDecoration.fontSize.toString())
                         }
                     }
                 }
@@ -154,8 +179,8 @@ fun CustomScreen(
                             onDecrease = { viewModel.adjustFontWeight(Adjustment.Down) },
                         ) {
                             Text(
-                                text = memoDecorationState.textDecoration.fontWeight.weightName,
-                                fontWeight = memoDecorationState.textDecoration.fontWeight.weight,
+                                text = memoDecoState.textDecoration.fontWeight.weightName,
+                                fontWeight = memoDecoState.textDecoration.fontWeight.weight,
                             )
                         }
                     }
@@ -196,9 +221,9 @@ fun CustomScreen(
                     ) {
                         SegmentedButton(
                             items = listOf(
-                                Alignment.Top to Icons.Filled.FavoriteBorder,
-                                Alignment.CenterVertically to Icons.Filled.Favorite,
-                                Alignment.Bottom to Icons.Filled.Star,
+                                Alignment.TopCenter to Icons.Filled.FavoriteBorder,
+                                Alignment.Center to Icons.Filled.Favorite,
+                                Alignment.BottomCenter to Icons.Filled.Star,
                             ),
                             onItemSelect = { viewModel.setTextVerticalAlign(it) },
                         )
@@ -211,14 +236,27 @@ fun CustomScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    ColorPickerButton(color = Color.Green) {
+                    ColorPickerButton(color = memoDecoState.backgroundDecoration.backgroundColor) {
+                        viewModel.startPickingColor(ColorOption.BackgroundColor)
                     }
 
-                    ShapeButton(shape = RoundedCornerShape(50.dp)) {
+                    ShapeButton(
+                        shape = when (memoDecoState.backgroundDecoration.backgroundShape) {
+                            Shape.Rectangle -> RectangleShape
+                            Shape.Circle -> CircleShape
+                            Shape.RoundedCorner -> RoundedCornerShape(memoDecoState.backgroundDecoration.backgroundShapeUnit)
+                            Shape.CutCorner -> CutCornerShape(memoDecoState.backgroundDecoration.backgroundShapeUnit)
+                        },
+                        fillColor = memoDecoState.backgroundDecoration.backgroundColor,
+                    ) {
+                        viewModel.changeBackgroundShape()
                     }
 
-                    StepAdjuster(onIncrease = { /*TODO*/ }, onDecrease = { /*TODO*/ }) {
-                        Text(text = "10")
+                    StepAdjuster(
+                        onIncrease = { viewModel.adjustBackgroundShapeUnit(Adjustment.Up) },
+                        onDecrease = { viewModel.adjustBackgroundShapeUnit(Adjustment.Down) },
+                    ) {
+                        Text(text = memoDecoState.backgroundDecoration.backgroundShapeUnit.toString())
                     }
                 }
                 Spacer(modifier = Modifier.height(4.dp))
@@ -242,14 +280,14 @@ fun CustomScreen(
         }
         uiState.currentColorOption?.let { option ->
             val initialColor = when (option) {
-                ColorOption.TextColor -> memoDecorationState.textDecoration.fontColor
-                ColorOption.BackgroundColor -> memoDecorationState.backgroundDecoration.backgroundColor
-                ColorOption.BorderColor -> memoDecorationState.borderDecoration.borderColor
+                ColorOption.TextColor -> memoDecoState.textDecoration.fontColor
+                ColorOption.BackgroundColor -> memoDecoState.backgroundDecoration.backgroundColor
+                ColorOption.BorderColor -> memoDecoState.borderDecoration.borderColor
             }
             val onDismiss: (Color) -> Unit = when (option) {
                 ColorOption.TextColor -> { color -> viewModel.setFontColor(color) }
-                ColorOption.BackgroundColor -> { color -> }
-                ColorOption.BorderColor -> { color -> }
+                ColorOption.BackgroundColor -> { color -> viewModel.setBackgroundColor(color) }
+                ColorOption.BorderColor -> { color -> viewModel.setBorderColor(color) }
             }
             ColorPickerDialog(initialColor = initialColor, onDismiss = onDismiss)
         }
