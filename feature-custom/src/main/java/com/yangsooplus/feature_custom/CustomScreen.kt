@@ -187,9 +187,8 @@ fun CustomScreen(
                 }
                 SegmentedButton(
                     items = listOf(
-                        FontFamily.Default to Icons.Filled.FavoriteBorder,
-                        FontFamily.Serif to Icons.Filled.FavoriteBorder,
                         FontFamily.SansSerif to Icons.Filled.FavoriteBorder,
+                        FontFamily.Serif to Icons.Filled.FavoriteBorder,
                         FontFamily.Monospace to Icons.Filled.FavoriteBorder,
                         FontFamily.Cursive to Icons.Filled.FavoriteBorder,
                     ),
