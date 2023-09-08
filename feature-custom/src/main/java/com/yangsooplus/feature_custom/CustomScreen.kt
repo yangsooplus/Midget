@@ -266,14 +266,56 @@ fun CustomScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    ColorPickerButton(color = Color.Green) {
+                    Box(
+                        modifier = Modifier.weight(1f),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        ColorPickerButton(color = memoDecoState.borderDecoration.borderColor) {
+                            viewModel.startPickingColor(ColorOption.BorderColor)
+                        }
                     }
-
-                    ShapeButton(shape = RoundedCornerShape(50.dp)) {
+                    Box(
+                        modifier = Modifier.weight(1f),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        StepAdjuster(
+                            onIncrease = { viewModel.adjustBorderWidth(Adjustment.Up) },
+                            onDecrease = { viewModel.adjustBorderWidth(Adjustment.Down) },
+                        ) {
+                            Text(text = memoDecoState.borderDecoration.borderWidth.toString())
+                        }
                     }
-
-                    StepAdjuster(onIncrease = { /*TODO*/ }, onDecrease = { /*TODO*/ }) {
-                        Text(text = "1")
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Box(
+                        modifier = Modifier.weight(1f),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        ShapeButton(
+                            shape = when (memoDecoState.borderDecoration.borderShape) {
+                                Shape.Rectangle -> RectangleShape
+                                Shape.Circle -> CircleShape
+                                Shape.RoundedCorner -> RoundedCornerShape(memoDecoState.borderDecoration.borderShapeUnit)
+                                Shape.CutCorner -> CutCornerShape(memoDecoState.borderDecoration.borderShapeUnit)
+                            },
+                            borderColor = memoDecoState.borderDecoration.borderColor,
+                        ) {
+                            viewModel.changeBorderShape()
+                        }
+                    }
+                    Box(
+                        modifier = Modifier.weight(1f),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        StepAdjuster(
+                            onIncrease = { viewModel.adjustBorderShapeUnit(Adjustment.Up) },
+                            onDecrease = { viewModel.adjustBorderShapeUnit(Adjustment.Down) },
+                        ) {
+                            Text(text = memoDecoState.borderDecoration.borderShapeUnit.toString())
+                        }
                     }
                 }
             }

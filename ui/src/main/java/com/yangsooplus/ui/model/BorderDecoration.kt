@@ -6,5 +6,5 @@ data class BorderDecoration(
     val borderColor: Color = Color.Transparent,
     val borderShape: Shape = Shape.Rectangle,
     val borderWidth: Int = 1,
-    val borderShapeUnit: Int = 0,
+    val borderShapeUnit: Int = 10,
 )

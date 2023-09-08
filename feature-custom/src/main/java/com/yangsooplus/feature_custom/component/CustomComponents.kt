@@ -227,7 +227,7 @@ fun ShapeButton(
     modifier: Modifier = Modifier,
     fillColor: Color = Color.Transparent,
     borderColor: Color = Color.Transparent,
-    borderWidth: Dp = 1.dp,
+    borderWidth: Dp = 2.dp,
     onClick: () -> Unit,
 ) {
     Button(

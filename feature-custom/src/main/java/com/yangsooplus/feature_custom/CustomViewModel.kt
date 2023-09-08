@@ -131,7 +131,7 @@ class CustomViewModel @Inject constructor() : ViewModel() {
 
     fun changeBorderShape() {
         val currentShape = _borderDecoState.value.borderShape.ordinal
-        _borderDecoState.update { it.copy(borderShape = Shape.values()[currentShape % Shape.values().size]) }
+        _borderDecoState.update { it.copy(borderShape = Shape.values()[(currentShape + 1) % Shape.values().size]) }
     }
 
     fun adjustBorderWidth(adjustment: Adjustment) {
