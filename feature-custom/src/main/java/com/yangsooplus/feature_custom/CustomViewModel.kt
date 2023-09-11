@@ -7,12 +7,9 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yangsooplus.ui.model.BackgroundDecoration
-import com.yangsooplus.ui.model.BorderDecoration
 import com.yangsooplus.ui.model.FontWeights
 import com.yangsooplus.ui.model.MemoDecoration
 import com.yangsooplus.ui.model.Shape
-import com.yangsooplus.ui.model.TextDecoration
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -27,22 +24,8 @@ class CustomViewModel @Inject constructor() : ViewModel() {
     private val _uiState = MutableStateFlow(CustomUiState())
     val uiState = _uiState.asStateFlow()
 
-    private val _textDecoState = MutableStateFlow(TextDecoration())
-    private val _backgroundDecoState = MutableStateFlow(BackgroundDecoration())
-    private val _borderDecoState = MutableStateFlow(BorderDecoration())
-
-    val memoDecoState =
-        combine(
-            _textDecoState,
-            _backgroundDecoState,
-            _borderDecoState,
-        ) { txt, bg, bdr ->
-            MemoDecoration(
-                textDecoration = txt,
-                backgroundDecoration = bg,
-                borderDecoration = bdr,
-            )
-        }.stateIn(viewModelScope, SharingStarted.Eagerly, MemoDecoration())
+    private val _memoDecoState = MutableStateFlow(MemoDecoration())
+    val memoDecoState = _memoDecoState.asStateFlow()
 
     fun startPickingColor(option: ColorOption) {
         _uiState.update { it.copy(currentColorOption = option) }
@@ -53,7 +36,7 @@ class CustomViewModel @Inject constructor() : ViewModel() {
     }
 
     fun adjustFontSize(adjustment: Adjustment) {
-        _textDecoState.update {
+        _memoDecoState.update {
             when (adjustment) {
                 Adjustment.Up -> it.copy(fontSize = it.fontSize + 1)
                 Adjustment.Down -> it.copy(fontSize = it.fontSize - 1)
@@ -62,7 +45,7 @@ class CustomViewModel @Inject constructor() : ViewModel() {
     }
 
     fun adjustFontWeight(adjustment: Adjustment) {
-        _textDecoState.update {
+        _memoDecoState.update {
             val currentWeight = FontWeights.values().indexOf(it.fontWeight)
             val changeWeight = when (adjustment) {
                 Adjustment.Up -> {
@@ -80,38 +63,38 @@ class CustomViewModel @Inject constructor() : ViewModel() {
     }
 
     fun setFontFamily(fontFamily: FontFamily) {
-        _textDecoState.update { it.copy(fontFamily = fontFamily) }
+        _memoDecoState.update { it.copy(fontFamily = fontFamily) }
     }
 
     fun setFontColor(color: Color) {
-        _textDecoState.update { it.copy(fontColor = color) }
+        _memoDecoState.update { it.copy(fontColor = color) }
         _uiState.update { it.copy(currentColorOption = null) }
     }
 
     fun setFontStyle(fontStyle: FontStyle) {
-        _textDecoState.update { it.copy(fontStyle = fontStyle) }
+        _memoDecoState.update { it.copy(fontStyle = fontStyle) }
     }
 
     fun setTextAlign(textAlign: TextAlign) {
-        _textDecoState.update { it.copy(textAlign = textAlign) }
+        _memoDecoState.update { it.copy(textAlign = textAlign) }
     }
 
     fun setTextVerticalAlign(alignment: Alignment) {
-        _textDecoState.update { it.copy(textVerticalAlign = alignment) }
+        _memoDecoState.update { it.copy(textVerticalAlign = alignment) }
     }
 
     fun setBackgroundColor(color: Color) {
-        _backgroundDecoState.update { it.copy(backgroundColor = color) }
+        _memoDecoState.update { it.copy(backgroundColor = color) }
         _uiState.update { it.copy(currentColorOption = null) }
     }
 
     fun changeBackgroundShape() {
-        val currentShape = _backgroundDecoState.value.backgroundShape.ordinal
-        _backgroundDecoState.update { it.copy(backgroundShape = Shape.values()[(currentShape + 1) % Shape.values().size]) }
+        val currentShape = _memoDecoState.value.backgroundShape.ordinal
+        _memoDecoState.update { it.copy(backgroundShape = Shape.values()[(currentShape + 1) % Shape.values().size]) }
     }
 
     fun adjustBackgroundShapeUnit(adjustment: Adjustment) {
-        _backgroundDecoState.update {
+        _memoDecoState.update {
             it.copy(
                 backgroundShapeUnit = when (adjustment) {
                     Adjustment.Up -> it.backgroundShapeUnit + 1
@@ -125,17 +108,17 @@ class CustomViewModel @Inject constructor() : ViewModel() {
     }
 
     fun setBorderColor(color: Color) {
-        _borderDecoState.update { it.copy(borderColor = color) }
+        _memoDecoState.update { it.copy(borderColor = color) }
         _uiState.update { it.copy(currentColorOption = null) }
     }
 
     fun changeBorderShape() {
-        val currentShape = _borderDecoState.value.borderShape.ordinal
-        _borderDecoState.update { it.copy(borderShape = Shape.values()[(currentShape + 1) % Shape.values().size]) }
+        val currentShape = _memoDecoState.value.borderShape.ordinal
+        _memoDecoState.update { it.copy(borderShape = Shape.values()[(currentShape + 1) % Shape.values().size]) }
     }
 
     fun adjustBorderWidth(adjustment: Adjustment) {
-        _borderDecoState.update {
+        _memoDecoState.update {
             it.copy(
                 borderWidth = when (adjustment) {
                     Adjustment.Up -> it.borderWidth + 1
@@ -149,7 +132,7 @@ class CustomViewModel @Inject constructor() : ViewModel() {
     }
 
     fun adjustBorderShapeUnit(adjustment: Adjustment) {
-        _borderDecoState.update {
+        _memoDecoState.update {
             it.copy(
                 borderShapeUnit = when (adjustment) {
                     Adjustment.Up -> it.borderShapeUnit + 1

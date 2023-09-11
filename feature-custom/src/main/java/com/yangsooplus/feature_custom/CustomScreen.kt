@@ -65,33 +65,33 @@ fun CustomScreen(
             ) {
                 Box(
                     modifier = Modifier.background(
-                        color = memoDecoState.backgroundDecoration.backgroundColor,
-                        shape = when (memoDecoState.backgroundDecoration.backgroundShape) {
+                        color = memoDecoState.backgroundColor,
+                        shape = when (memoDecoState.backgroundShape) {
                             Shape.Rectangle -> RectangleShape
                             Shape.Circle -> CircleShape
-                            Shape.RoundedCorner -> RoundedCornerShape(memoDecoState.backgroundDecoration.backgroundShapeUnit)
-                            Shape.CutCorner -> CutCornerShape(memoDecoState.backgroundDecoration.backgroundShapeUnit)
+                            Shape.RoundedCorner -> RoundedCornerShape(memoDecoState.backgroundShapeUnit)
+                            Shape.CutCorner -> CutCornerShape(memoDecoState.backgroundShapeUnit)
                         },
                     ).border(
-                        width = memoDecoState.borderDecoration.borderWidth.dp,
-                        color = memoDecoState.borderDecoration.borderColor,
-                        shape = when (memoDecoState.borderDecoration.borderShape) {
+                        width = memoDecoState.borderWidth.dp,
+                        color = memoDecoState.borderColor,
+                        shape = when (memoDecoState.borderShape) {
                             Shape.Rectangle -> RectangleShape
                             Shape.Circle -> CircleShape
-                            Shape.RoundedCorner -> RoundedCornerShape(memoDecoState.borderDecoration.borderShapeUnit)
-                            Shape.CutCorner -> CutCornerShape(memoDecoState.borderDecoration.borderShapeUnit)
+                            Shape.RoundedCorner -> RoundedCornerShape(memoDecoState.borderShapeUnit)
+                            Shape.CutCorner -> CutCornerShape(memoDecoState.borderShapeUnit)
                         },
                     ).padding(24.dp),
-                    contentAlignment = memoDecoState.textDecoration.textVerticalAlign,
+                    contentAlignment = memoDecoState.textVerticalAlign,
                 ) {
                     Text(
                         text = uiState.memoContent,
-                        color = memoDecoState.textDecoration.fontColor,
-                        fontSize = memoDecoState.textDecoration.fontSize.sp,
-                        fontFamily = memoDecoState.textDecoration.fontFamily,
-                        fontWeight = memoDecoState.textDecoration.fontWeight.weight,
-                        textAlign = memoDecoState.textDecoration.textAlign,
-                        fontStyle = memoDecoState.textDecoration.fontStyle,
+                        color = memoDecoState.fontColor,
+                        fontSize = memoDecoState.fontSize.sp,
+                        fontFamily = memoDecoState.fontFamily,
+                        fontWeight = memoDecoState.fontWeight.weight,
+                        textAlign = memoDecoState.textAlign,
+                        fontStyle = memoDecoState.fontStyle,
                     )
                 }
             }
@@ -134,7 +134,7 @@ fun CustomScreen(
                         contentAlignment = Alignment.Center,
                     ) {
                         ColorPickerButton(
-                            color = memoDecoState.textDecoration.fontColor,
+                            color = memoDecoState.fontColor,
                         ) {
                             viewModel.startPickingColor(ColorOption.TextColor)
                         }
@@ -147,7 +147,7 @@ fun CustomScreen(
                             onIncrease = { viewModel.adjustFontSize(Adjustment.Up) },
                             onDecrease = { viewModel.adjustFontSize(Adjustment.Down) },
                         ) {
-                            Text(text = memoDecoState.textDecoration.fontSize.toString())
+                            Text(text = memoDecoState.fontSize.toString())
                         }
                     }
                 }
@@ -179,8 +179,8 @@ fun CustomScreen(
                             onDecrease = { viewModel.adjustFontWeight(Adjustment.Down) },
                         ) {
                             Text(
-                                text = memoDecoState.textDecoration.fontWeight.weightName,
-                                fontWeight = memoDecoState.textDecoration.fontWeight.weight,
+                                text = memoDecoState.fontWeight.weightName,
+                                fontWeight = memoDecoState.fontWeight.weight,
                             )
                         }
                     }
@@ -235,18 +235,18 @@ fun CustomScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    ColorPickerButton(color = memoDecoState.backgroundDecoration.backgroundColor) {
+                    ColorPickerButton(color = memoDecoState.backgroundColor) {
                         viewModel.startPickingColor(ColorOption.BackgroundColor)
                     }
 
                     ShapeButton(
-                        shape = when (memoDecoState.backgroundDecoration.backgroundShape) {
+                        shape = when (memoDecoState.backgroundShape) {
                             Shape.Rectangle -> RectangleShape
                             Shape.Circle -> CircleShape
-                            Shape.RoundedCorner -> RoundedCornerShape(memoDecoState.backgroundDecoration.backgroundShapeUnit)
-                            Shape.CutCorner -> CutCornerShape(memoDecoState.backgroundDecoration.backgroundShapeUnit)
+                            Shape.RoundedCorner -> RoundedCornerShape(memoDecoState.backgroundShapeUnit)
+                            Shape.CutCorner -> CutCornerShape(memoDecoState.backgroundShapeUnit)
                         },
-                        fillColor = memoDecoState.backgroundDecoration.backgroundColor,
+                        fillColor = memoDecoState.backgroundColor,
                     ) {
                         viewModel.changeBackgroundShape()
                     }
@@ -255,7 +255,7 @@ fun CustomScreen(
                         onIncrease = { viewModel.adjustBackgroundShapeUnit(Adjustment.Up) },
                         onDecrease = { viewModel.adjustBackgroundShapeUnit(Adjustment.Down) },
                     ) {
-                        Text(text = memoDecoState.backgroundDecoration.backgroundShapeUnit.toString())
+                        Text(text = memoDecoState.backgroundShapeUnit.toString())
                     }
                 }
                 Spacer(modifier = Modifier.height(4.dp))
@@ -269,7 +269,7 @@ fun CustomScreen(
                         modifier = Modifier.weight(1f),
                         contentAlignment = Alignment.Center,
                     ) {
-                        ColorPickerButton(color = memoDecoState.borderDecoration.borderColor) {
+                        ColorPickerButton(color = memoDecoState.borderColor) {
                             viewModel.startPickingColor(ColorOption.BorderColor)
                         }
                     }
@@ -281,7 +281,7 @@ fun CustomScreen(
                             onIncrease = { viewModel.adjustBorderWidth(Adjustment.Up) },
                             onDecrease = { viewModel.adjustBorderWidth(Adjustment.Down) },
                         ) {
-                            Text(text = memoDecoState.borderDecoration.borderWidth.toString())
+                            Text(text = memoDecoState.borderWidth.toString())
                         }
                     }
                 }
@@ -294,13 +294,13 @@ fun CustomScreen(
                         contentAlignment = Alignment.Center,
                     ) {
                         ShapeButton(
-                            shape = when (memoDecoState.borderDecoration.borderShape) {
+                            shape = when (memoDecoState.borderShape) {
                                 Shape.Rectangle -> RectangleShape
                                 Shape.Circle -> CircleShape
-                                Shape.RoundedCorner -> RoundedCornerShape(memoDecoState.borderDecoration.borderShapeUnit)
-                                Shape.CutCorner -> CutCornerShape(memoDecoState.borderDecoration.borderShapeUnit)
+                                Shape.RoundedCorner -> RoundedCornerShape(memoDecoState.borderShapeUnit)
+                                Shape.CutCorner -> CutCornerShape(memoDecoState.borderShapeUnit)
                             },
-                            borderColor = memoDecoState.borderDecoration.borderColor,
+                            borderColor = memoDecoState.borderColor,
                         ) {
                             viewModel.changeBorderShape()
                         }
@@ -313,7 +313,7 @@ fun CustomScreen(
                             onIncrease = { viewModel.adjustBorderShapeUnit(Adjustment.Up) },
                             onDecrease = { viewModel.adjustBorderShapeUnit(Adjustment.Down) },
                         ) {
-                            Text(text = memoDecoState.borderDecoration.borderShapeUnit.toString())
+                            Text(text = memoDecoState.borderShapeUnit.toString())
                         }
                     }
                 }
@@ -321,9 +321,9 @@ fun CustomScreen(
         }
         uiState.currentColorOption?.let { option ->
             val initialColor = when (option) {
-                ColorOption.TextColor -> memoDecoState.textDecoration.fontColor
-                ColorOption.BackgroundColor -> memoDecoState.backgroundDecoration.backgroundColor
-                ColorOption.BorderColor -> memoDecoState.borderDecoration.borderColor
+                ColorOption.TextColor -> memoDecoState.fontColor
+                ColorOption.BackgroundColor -> memoDecoState.backgroundColor
+                ColorOption.BorderColor -> memoDecoState.borderColor
             }
             val onDismiss: (Color) -> Unit = when (option) {
                 ColorOption.TextColor -> { color -> viewModel.setFontColor(color) }
