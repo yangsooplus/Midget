@@ -24,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
@@ -120,6 +121,28 @@ fun ColorPickerButton(
     }
 }
 
+@Composable
+fun ColorPickerButton(
+    brush: Brush,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+) {
+    Button(
+        modifier = Modifier.then(modifier).size(width = 60.dp, height = 40.dp),
+        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+        shape = RoundedCornerShape(8.dp),
+        border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.primary),
+        contentPadding = PaddingValues(0.dp),
+        onClick = onClick,
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(brush = brush),
+        ) {}
+    }
+}
+
 @Preview
 @Composable
 fun ColorPickerButtonPreview() {
@@ -127,6 +150,12 @@ fun ColorPickerButtonPreview() {
         ColorPickerButton(color = Color.Transparent, onClick = {})
         ColorPickerButton(color = Color.Magenta, onClick = {})
         ColorPickerButton(color = Color(0xA00000FF), onClick = {})
+        ColorPickerButton(
+            brush = Brush.horizontalGradient(
+                colors = listOf(Color.Red, Color.Yellow, Color.Green, Color.Blue, Color.Magenta),
+            ),
+        ) {
+        }
     }
 }
 
