@@ -36,6 +36,7 @@ android {
 
 dependencies {
     implementation(project(":database"))
+    implementation(project(":model"))
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)

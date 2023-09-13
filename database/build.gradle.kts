@@ -36,6 +36,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":model"))
 
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
