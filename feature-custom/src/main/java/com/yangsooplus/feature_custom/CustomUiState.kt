@@ -1,11 +1,8 @@
 package com.yangsooplus.feature_custom
 
-import com.yangsooplus.ui.model.MemoDecoration
-
 data class CustomUiState(
     val currentColorOption: ColorOption? = null,
-    val memoContent: String = "",
-    val memoDecoration: MemoDecoration = MemoDecoration()
+    val memoContent: String = ""
 )
 
 enum class ColorOption {
