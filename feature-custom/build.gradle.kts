@@ -46,6 +46,7 @@ android {
 dependencies {
     implementation(project(":ui"))
     implementation(project(":data"))
+    implementation(project(":model"))
 
     implementation(libs.colorpicker)
 
