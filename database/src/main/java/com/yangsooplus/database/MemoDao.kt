@@ -4,26 +4,31 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Update
-import com.yangsooplus.database.model.MemoEntity
+import androidx.room.Transaction
+import com.yangsooplus.database.model.History
+import com.yangsooplus.database.model.MemoWithHistory
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MemoDao {
 
-    @Insert
-    suspend fun insertMemo(memoEntity: MemoEntity)
+    @Transaction
+    @Query("SELECT * FROM memo")
+    fun getMemos(): Flow<List<MemoWithHistory>>
 
-    @Update
-    suspend fun updateMemo(memoEntity: MemoEntity)
+    @Transaction
+    @Query("SELECT * FROM history WHERE ownerMemoId = :memoId ORDER BY writeAt DESC")
+    fun getHistoryByMemoId(memoId: Long): Flow<List<History>>
+
+    @Insert
+    suspend fun insertMemo(memoWithHistory: MemoWithHistory)
 
     @Delete
-    suspend fun deleteMemoById(memoEntity: MemoEntity)
+    suspend fun deleteMemo(memoWithHistory: MemoWithHistory)
 
-    @Query("SELECT * FROM memo")
-    fun getAllMemos(): Flow<List<MemoEntity>>
+    @Insert
+    suspend fun insertHistory(history: History)
 
-    @Query("SELECT * FROM memo WHERE id IN (:id)")
-    fun getMemoById(id: Int): Flow<MemoEntity>
-
+    @Delete
+    suspend fun deleteHistory(history: History)
 }
