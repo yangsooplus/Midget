@@ -1,4 +1,4 @@
-package com.yangsooplus.database
+package com.yangsooplus.database.converter
 
 import androidx.room.TypeConverter
 import java.time.LocalDateTime

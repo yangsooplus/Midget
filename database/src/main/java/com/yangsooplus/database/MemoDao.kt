@@ -22,10 +22,10 @@ interface MemoDao {
     fun getMemoByID(memoId: Long): Flow<MemoWithHistory>
 
     @Insert
-    suspend fun insertMemo(memoWithHistory: MemoWithHistory)
+    suspend fun insertMemo(memo: Memo)
 
     @Delete
-    suspend fun deleteMemo(memoWithHistory: MemoWithHistory)
+    suspend fun deleteMemo(memo: Memo)
 
     @Insert
     suspend fun insertHistory(history: History)
