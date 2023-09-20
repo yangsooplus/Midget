@@ -1,7 +1,7 @@
 package com.yangsooplus.database.converter
 
 import androidx.room.TypeConverter
-import com.yangsooplus.model.Decoration
+import com.yangsooplus.database.model.Decoration
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json

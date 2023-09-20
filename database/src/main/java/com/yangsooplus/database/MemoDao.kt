@@ -1,7 +1,6 @@
 package com.yangsooplus.database
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
@@ -22,14 +21,14 @@ interface MemoDao {
     fun getMemoByID(memoId: Long): Flow<MemoWithHistory>
 
     @Insert
-    suspend fun insertMemo(memo: Memo)
+    suspend fun insertMemo(memo: Memo): Long
 
-    @Delete
-    suspend fun deleteMemo(memo: Memo)
+    @Query("DELETE FROM memo WHERE memoId = :memoId")
+    suspend fun deleteMemoById(memoId: Long)
 
     @Insert
-    suspend fun insertHistory(history: History)
+    suspend fun insertHistory(history: History): Long
 
-    @Delete
-    suspend fun deleteHistory(history: History)
+    @Query("DELETE FROM history WHERE historyId = :historyId")
+    suspend fun deleteHistoryById(historyId: Long)
 }

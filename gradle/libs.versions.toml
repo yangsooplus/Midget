@@ -63,6 +63,8 @@ glance = { module = "androidx.glance:glance-appwidget", version.ref = "glance"}
 colorpicker = { module = "com.github.skydoves:colorpicker-compose", version.ref = "colorpicker" }
 androidx-monitor = { group = "androidx.test", name = "monitor", version = "1.6.1" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerialization"}
+truth = { module = "com.google.truth:truth", version = "1.0.1"}
+arch = { module = "android.arch.core:core-testing", version = "1.1.1"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

@@ -34,9 +34,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    testOptions {
-        unitTests.isReturnDefaultValues = true
-    }
 }
 
 dependencies {
@@ -53,10 +50,10 @@ dependencies {
 
     // Local tests: jUnit, coroutines, Android runner
     testImplementation(libs.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.androidx.test.core)
-    testImplementation(libs.androidx.test.runner)
-    testImplementation(libs.androidx.test.ext.junit)
-    testImplementation(libs.androidx.test.rules)
-    testImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.arch)
+
 }
