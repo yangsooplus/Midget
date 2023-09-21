@@ -14,3 +14,11 @@ data class History(
     val content: String,
     val writeAt: LocalDateTime,
 )
+
+fun History.toModel(): com.yangsooplus.model.History {
+    return com.yangsooplus.model.History(
+        historyId = historyId,
+        content = content,
+        writeAt = writeAt,
+    )
+}

@@ -1,9 +1,11 @@
 package com.yangsooplus.data
 
 import com.yangsooplus.database.MemoDao
+import com.yangsooplus.database.model.toModel
 import com.yangsooplus.model.History
 import com.yangsooplus.model.Memo
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.transform
 import javax.inject.Inject
 
 interface MemoRepository {
@@ -16,29 +18,28 @@ interface MemoRepository {
 }
 
 class MemoRepositoryImpl @Inject constructor(
-    private val memoDao: MemoDao
+    private val memoDao: MemoDao,
 ) : MemoRepository {
-    override fun getMemos(): Flow<List<Memo>> {
-        TODO("Not yet implemented")
+    override fun getMemos(): Flow<List<Memo>> = memoDao.getMemos().transform { mwh ->
+        mwh.map { it.toModel() }
     }
 
-    override fun getMemoById(memoId: Long): Flow<Memo> {
-        TODO("Not yet implemented")
-    }
+    override fun getMemoById(memoId: Long): Flow<Memo> =
+        memoDao.getMemoByID(memoId = memoId).transform { it.toModel() }
 
     override suspend fun addMemo(memo: Memo) {
-        TODO("Not yet implemented")
+        memoDao.insertMemo(memo = memo.toEntity())
     }
 
     override suspend fun addHistory(memoId: Long, history: History) {
-        TODO("Not yet implemented")
+        memoDao.insertHistory(history = history.toEntity(memoId))
     }
 
     override suspend fun deleteMemo(memo: Memo) {
-        TODO("Not yet implemented")
+        memoDao.deleteMemoById(memoId = memo.memoId)
     }
 
     override suspend fun deleteHistory(history: History) {
-        TODO("Not yet implemented")
+        memoDao.deleteHistoryById(historyId = history.historyId)
     }
 }

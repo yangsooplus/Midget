@@ -30,3 +30,22 @@ data class Decoration(
     val borderWidth: Int = 1,
     val borderShapeUnit: Int = 10,
 )
+
+fun Decoration.toModel(): com.yangsooplus.model.Decoration {
+    return com.yangsooplus.model.Decoration(
+        fontSize = fontSize,
+        fontFamily = fontFamily,
+        fontColor = fontColor,
+        fontStyle = fontStyle,
+        fontWeight = fontWeight,
+        textAlign = textAlign,
+        textVerticalAlign = textVerticalAlign,
+        backgroundColor = backgroundColor,
+        backgroundShapeOrdinal = backgroundShapeOrdinal,
+        backgroundShapeUnit = backgroundShapeUnit,
+        borderColor = borderColor,
+        borderShapeOrdinal = borderShapeOrdinal,
+        borderWidth = borderWidth,
+        borderShapeUnit = borderShapeUnit,
+    )
+}
