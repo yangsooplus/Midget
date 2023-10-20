@@ -21,8 +21,8 @@ interface MemoRepository {
 class MemoRepositoryImpl @Inject constructor(
     private val memoDao: MemoDao,
 ) : MemoRepository {
-    override fun getMemos(): Flow<List<Memo>> = memoDao.getMemos().transform { mwh ->
-        mwh.map { it.toModel() }
+    override fun getMemos(): Flow<List<Memo>> {
+        return memoDao.getMemos().map { list -> list.map { it.toModel() } }
     }
 
     override fun getMemoById(memoId: Long): Flow<Memo> =
