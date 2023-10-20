@@ -6,22 +6,49 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.yangsooplus.data.MemoRepository
+import com.yangsooplus.model.History
+import com.yangsooplus.model.Memo
 import com.yangsooplus.ui.model.FontWeights
 import com.yangsooplus.ui.model.MemoDecoration
 import com.yangsooplus.ui.model.Shape
+import com.yangsooplus.ui.model.toModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
-class CustomViewModel @Inject constructor() : ViewModel() {
+class CustomViewModel @Inject constructor(
+    private val memoRepository: MemoRepository,
+) : ViewModel() {
     private val _uiState = MutableStateFlow(CustomUiState())
     val uiState = _uiState.asStateFlow()
 
     private val _memoDecoState = MutableStateFlow(MemoDecoration())
     val memoDecoState = _memoDecoState.asStateFlow()
+
+    fun saveMemo() {
+        viewModelScope.launch {
+            val memoId = memoRepository.addMemo(
+                Memo(
+                    decoration = _memoDecoState.value.toModel(),
+                    histories = emptyList(),
+                ),
+            )
+            memoRepository.addHistory(
+                memoId = memoId,
+                history = History(
+                    content = _uiState.value.memoContent,
+                    writeAt = LocalDateTime.now(),
+                ),
+            )
+        }
+    }
 
     fun startPickingColor(option: ColorOption) {
         _uiState.update { it.copy(currentColorOption = option) }

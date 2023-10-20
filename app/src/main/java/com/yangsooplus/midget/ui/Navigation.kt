@@ -12,7 +12,7 @@ fun Navigation(destination: String) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = destination) {
-        composable("home") { HomeScreen() { navController.navigate("custom")} }
-        composable("custom") { CustomScreen() }
+        composable("home") { HomeScreen { navController.navigate("custom") } }
+        composable("custom") { CustomScreen { navController.navigate("home") } }
     }
 }

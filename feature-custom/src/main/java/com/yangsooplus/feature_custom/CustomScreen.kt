@@ -22,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -50,6 +51,7 @@ import com.yangsooplus.ui.model.Shape
 @Composable
 fun CustomScreen(
     viewModel: CustomViewModel = hiltViewModel(),
+    onClick: () -> Unit,
 ) {
     val textFieldScrollState = rememberScrollState()
     val decorationScrollState = rememberScrollState()
@@ -318,6 +320,16 @@ fun CustomScreen(
                     }
                 }
             }
+            Button(
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                shape = RoundedCornerShape(4.dp),
+                onClick = {
+                    viewModel.saveMemo()
+                    onClick()
+                },
+            ) {
+                Text(text = "Done")
+            }
         }
         uiState.currentColorOption?.let { option ->
             val initialColor = when (option) {
@@ -343,6 +355,6 @@ fun CustomScreenPreview() {
             .fillMaxSize()
             .background(color = Color.White),
     ) {
-        CustomScreen()
+        CustomScreen() {}
     }
 }
