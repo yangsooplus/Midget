@@ -79,6 +79,7 @@ dependencies {
 
     // Glance Widget
     implementation(libs.glance)
+    implementation(libs.glance.appwidget)
 
     // Instrumented tests: jUnit rules and runners
     androidTestImplementation(libs.androidx.test.ext.junit)

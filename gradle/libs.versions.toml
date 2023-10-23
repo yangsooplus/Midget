@@ -59,7 +59,8 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-glance = { module = "androidx.glance:glance-appwidget", version.ref = "glance"}
+glance = { module = "androidx.glance:glance", version.ref = "glance"}
+glance-appwidget = { module = "androidx.glance:glance-appwidget", version.ref = "glance"}
 colorpicker = { module = "com.github.skydoves:colorpicker-compose", version.ref = "colorpicker" }
 androidx-monitor = { group = "androidx.test", name = "monitor", version = "1.6.1" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerialization"}
