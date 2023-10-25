@@ -5,7 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.yangsooplus.feature_custom.CustomScreen
-import com.yangsooplus.feature_home.HomeScreen
+import com.yangsooplus.feature_home.home.HomeScreen
 
 @Composable
 fun Navigation(destination: String) {

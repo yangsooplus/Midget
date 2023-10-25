@@ -1,4 +1,4 @@
-package com.yangsooplus.feature_home
+package com.yangsooplus.feature_home.home
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
