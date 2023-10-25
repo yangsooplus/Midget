@@ -16,6 +16,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val destination = intent.extras?.getString(MidgetConstants.WIDGET_DESTINATION) ?: "home"
+        val appWidgetId = intent.extras?.getInt(MidgetConstants.APPWIDGET_ID)
 
         setContent {
             MidgetTheme {
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    Navigation(destination)
+                    Navigation(destination, appWidgetId)
                 }
             }
         }

@@ -1,4 +1,4 @@
-package com.yangsooplus.feature_home.home
+package com.yangsooplus.feature_home.select
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,9 +19,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.yangsooplus.feature_home.component.MemoItem
+import com.yangsooplus.feature_home.home.HomeViewModel
 
 @Composable
-fun HomeScreen(
+fun SelectScreen(
+    appWidgetId: Int,
     viewModel: HomeViewModel = hiltViewModel(),
     onClick: () -> Unit,
 ) {
@@ -37,7 +39,8 @@ fun HomeScreen(
                 items = memos,
                 key = { memo -> memo.memoId },
             ) {
-                MemoItem(memo = it) {}
+                MemoItem(memo = it) {
+                }
             }
         }
         Button(
