@@ -1,6 +1,6 @@
 package com.yangsooplus.data
 
-import com.yangsooplus.database.MemoDao
+import com.yangsooplus.database.dao.MemoDao
 import com.yangsooplus.database.model.toModel
 import com.yangsooplus.model.History
 import com.yangsooplus.model.Memo

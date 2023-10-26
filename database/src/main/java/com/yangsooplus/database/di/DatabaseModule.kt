@@ -2,7 +2,7 @@ package com.yangsooplus.database.di
 
 import android.content.Context
 import androidx.room.Room
-import com.yangsooplus.database.MemoDao
+import com.yangsooplus.database.dao.MemoDao
 import com.yangsooplus.database.MidgetDatabase
 import dagger.Module
 import dagger.Provides
