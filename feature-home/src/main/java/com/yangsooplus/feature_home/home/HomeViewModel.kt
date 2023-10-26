@@ -2,7 +2,7 @@ package com.yangsooplus.feature_home.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yangsooplus.data.MemoRepository
+import com.yangsooplus.data.repository.MemoRepository
 import com.yangsooplus.model.Memo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted

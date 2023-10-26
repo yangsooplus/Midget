@@ -3,6 +3,7 @@ package com.yangsooplus.data
 import com.yangsooplus.model.Decoration
 import com.yangsooplus.model.History
 import com.yangsooplus.model.Memo
+import com.yangsooplus.model.WidgetData
 
 fun Memo.toEntity(): com.yangsooplus.database.model.Memo {
     return com.yangsooplus.database.model.Memo(
@@ -35,6 +36,11 @@ fun History.toEntity(memoId: Long): com.yangsooplus.database.model.History {
         historyId = historyId,
         ownerMemoId = memoId,
         content = content,
-        writeAt = writeAt
+        writeAt = writeAt,
     )
 }
+
+fun WidgetData.toEntity() = com.yangsooplus.database.model.WidgetData(
+    memoId = memoId,
+    appWidgetId = appWidgetId,
+)

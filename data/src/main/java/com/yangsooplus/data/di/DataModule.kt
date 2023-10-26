@@ -1,7 +1,9 @@
 package com.yangsooplus.data.di
 
-import com.yangsooplus.data.MemoRepository
-import com.yangsooplus.data.MemoRepositoryImpl
+import com.yangsooplus.data.repository.MemoRepository
+import com.yangsooplus.data.repository.MemoRepositoryImpl
+import com.yangsooplus.data.repository.WidgetRepository
+import com.yangsooplus.data.repository.WidgetRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -17,4 +19,10 @@ interface DataModule {
     fun bindMemoRepository(
         memoRepositoryImpl: MemoRepositoryImpl,
     ): MemoRepository
+
+    @Singleton
+    @Binds
+    fun bindWidgetRepository(
+        widgetRepositoryImpl: WidgetRepositoryImpl,
+    ): WidgetRepository
 }

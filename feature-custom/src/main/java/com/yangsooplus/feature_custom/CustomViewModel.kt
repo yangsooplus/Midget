@@ -7,7 +7,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yangsooplus.data.MemoRepository
+import com.yangsooplus.data.repository.MemoRepository
 import com.yangsooplus.model.History
 import com.yangsooplus.model.Memo
 import com.yangsooplus.ui.model.FontWeights

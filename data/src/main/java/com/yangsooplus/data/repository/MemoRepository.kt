@@ -1,5 +1,6 @@
-package com.yangsooplus.data
+package com.yangsooplus.data.repository
 
+import com.yangsooplus.data.toEntity
 import com.yangsooplus.database.dao.MemoDao
 import com.yangsooplus.database.model.toModel
 import com.yangsooplus.model.History
