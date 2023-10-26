@@ -2,8 +2,9 @@ package com.yangsooplus.database.di
 
 import android.content.Context
 import androidx.room.Room
-import com.yangsooplus.database.dao.MemoDao
 import com.yangsooplus.database.MidgetDatabase
+import com.yangsooplus.database.dao.MemoDao
+import com.yangsooplus.database.dao.WidgetDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,6 +19,11 @@ class DatabaseModule {
     @Provides
     fun provideMemoDao(database: MidgetDatabase): MemoDao {
         return database.memoDao()
+    }
+
+    @Provides
+    fun provideWidgetDao(database: MidgetDatabase): WidgetDao {
+        return database.widgetDao()
     }
 
     @Provides

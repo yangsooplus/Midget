@@ -33,7 +33,7 @@ class MidgetWidget : GlanceAppWidget() {
                                 "com.yangsooplus.midget.ui.MainActivity",
                             )
                             flags = FLAG_ACTIVITY_NEW_TASK
-                            putExtra(MidgetConstants.WIDGET_DESTINATION, "home")
+                            putExtra(MidgetConstants.WIDGET_DESTINATION, "select")
                             putExtra(MidgetConstants.APPWIDGET_ID, appWidgetId)
                         },
                     )

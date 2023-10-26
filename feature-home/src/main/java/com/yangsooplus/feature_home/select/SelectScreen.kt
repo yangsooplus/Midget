@@ -30,6 +30,7 @@ fun SelectScreen(
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
     ) {
+        Text(text = "Select the Memo")
         LazyColumn(
             modifier = Modifier.fillMaxWidth().weight(1f),
             verticalArrangement = Arrangement.spacedBy(8.dp),
