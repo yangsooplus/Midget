@@ -18,7 +18,7 @@ class SelectViewModel @Inject constructor(
     val memos: StateFlow<List<Memo>> =
         memoRepository.getMemos().stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
-    fun selectMemo(memoId: Long) {
+    fun selectMemo(memoId: Long, appWidgetId: Int) {
 
     }
 }

@@ -19,12 +19,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.yangsooplus.feature_home.component.MemoItem
-import com.yangsooplus.feature_home.home.HomeViewModel
 
 @Composable
 fun SelectScreen(
     appWidgetId: Int,
-    viewModel: HomeViewModel = hiltViewModel(),
+    viewModel: SelectViewModel = hiltViewModel(),
     onClick: () -> Unit,
 ) {
     val memos = viewModel.memos.collectAsState().value
@@ -38,8 +37,12 @@ fun SelectScreen(
             items(
                 items = memos,
                 key = { memo -> memo.memoId },
-            ) {
-                MemoItem(memo = it) {
+            ) { memo ->
+                MemoItem(memo = memo) {
+                    viewModel.selectMemo(
+                        memoId = memo.memoId,
+                        appWidgetId = appWidgetId,
+                    )
                 }
             }
         }
